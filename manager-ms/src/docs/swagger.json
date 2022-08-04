@@ -1,0 +1,294 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "version": "1.0.0",
+        "title": "Manager Api",
+        "description": "Tem por objetivo gerenciar autenticação e autorização de usuarios",
+        "termsOfService": "https://gitlab.com/sport-clube/micro-services/manager-ms",
+        "contact": {
+            "name": "API Support",
+            "email": "pablords@gmail.com",
+            "url": "https://gitlab.com/sport-clube/micro-services/manager-ms"
+        }
+    },
+    "servers": [
+        {
+            "url": "http://10.0.0.172:3003/v1",
+            "description": "Api de teste"
+        }
+    ],
+    "paths": {
+        "/login": {
+            "post": {
+                "summary": "Autentica Usuario e retorna um token de autorização",
+                "description": "Para logar em um APP especifico, Passe o client_id e o client_credentials. exemplo: para logar no parners-ms, passar o client_id partners-ms, e crendecial de service-account",
+                "tags": ["Login"],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "client_id": {
+                                        "type": "string"
+                                    },
+                                    "grant_type": {
+                                        "type": "string",
+                                        "enum": [
+                                            "password",
+                                            "refresh_token",
+                                            "client_credentials"
+                                        ]
+                                    },
+                                    "client_secret": {
+                                        "type": "string"
+                                    },
+                                    "username": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    },
+                                    "refresh_token": {
+                                        "type": "string"
+                                    }
+                                }
+                            },
+                            "encoding": {
+                                "payload": {
+                                    "contentType": "application/json"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "401": {
+                        "description": "Não autorizado"
+                    },
+                    "403": {
+                        "description": "Não autorizado"
+                    },
+                    "200": {
+                        "description": "ok",
+                        "content": {
+                            "aplication/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "access_token": {
+                                            "type": "string"
+                                        },
+                                        "expires_in": {
+                                            "type": "number"
+                                        },
+                                        "refresh_expires_in": {
+                                            "type": "number"
+                                        },
+                                        "refresh_token": {
+                                            "type": "string"
+                                        },
+                                        "token_type": {
+                                            "type": "string"
+                                        },
+                                        "not-before-policy": {
+                                            "type": "number"
+                                        },
+                                        "session_state": {
+                                            "type": "string"
+                                        },
+                                        "scope": {
+                                            "type": "string"
+                                        }
+                                    }
+                                },
+                                "example": {
+                                    "access_token": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJ0YUdaSS0yMFpjQkVxeW5NQWRkUEVZRnV4RG8zZmoyM1FiNTVEeGxLT05nIn0.eyJleHAiOjE2NTM3OTg4MTQsImlhdCI6MTY1Mzc5NzAxNCwianRpIjoiM2IwZTAyYzgtMDdlMi00YzJkLTllZjgtNThlNTkwOWQyYWVhIiwiaXNzIjoiaHR0cDovLzEwLjAuMC4xNzI6MzAwMy9hdXRoL3JlYWxtcy9kZXYtaGVsbSIsImF1ZCI6ImFjY291bnQiLCJzdWIiOiJhMzQ4NzI3Ny1mMzkzLTQyOWMtOWZmZC1kZmM1ZDIwNTA0YTMiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJwYXJ0bmVycy1tcyIsInNlc3Npb25fc3RhdGUiOiJmY2Y3OTQ1Ny03YmNkLTRjZTQtYWUxOC1kNzM4ZGIwOTIxMjEiLCJhY3IiOiIxIiwiYWxsb3dlZC1vcmlnaW5zIjpbImh0dHA6Ly8xMC4wLjAuMTcyOjMwMDEiXSwicmVhbG1fYWNjZXNzIjp7InJvbGVzIjpbImRlZmF1bHQtcm9sZXMtZGV2LWhlbG0iLCJvZmZsaW5lX2FjY2VzcyIsInVtYV9hdXRob3JpemF0aW9uIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19LCJwYXJ0bmVycy1tcyI6eyJyb2xlcyI6WyJ2aWV3IiwiZWRpdCIsImRlbGV0ZSJdfX0sInNjb3BlIjoicHJvZmlsZSBlbWFpbCIsInNpZCI6ImZjZjc5NDU3LTdiY2QtNGNlNC1hZTE4LWQ3MzhkYjA5MjEyMSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJuYW1lIjoicGFibG8gZG9zIHNhbnRvcyIsInByZWZlcnJlZF91c2VybmFtZSI6InBhYmxvX3NhbnRvcyIsImdpdmVuX25hbWUiOiJwYWJsbyIsImZhbWlseV9uYW1lIjoiZG9zIHNhbnRvcyIsImVtYWlsIjoicGFibG9yZHNAZ21haWwuY29tIn0.ilJRbqmcBmmsmq_8J7tEROrxYjCd5lpX_iJNb3Pe4WrfX--b4rn4ZTf99yGMGbF1YcNL9DRTZvrSEjxLOI1K1rkspeIf_iPUNPYvvsEFKlJ-XjV-sr4Z8A5UmiSS54t7eUierJYhRsqUEHDcdO7pGedt5cGJwM2gu3OoAAzXqX5SICQv_jOANuZAFOlOjYhedUi8xWFKsoF5wFjRxw0Gdm39uMaU7W_pJln8k-dpncVFAC_I8V9rHv4Wq1ZeE2bdISrMH9t71JN3bxr1kWMRKnRGY3xzpA34-v699Zi68foOS83i_LaBMhQhgs2BR0RcLa-on3yGGaH13qltLhVpYA",
+                                    "expires_in": 1800,
+                                    "refresh_expires_in": 1800,
+                                    "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICI4ODkyOTMwZC02MTA0LTRhYTMtYjhmZi00OTQ3YjYwODY5OWYifQ.eyJleHAiOjE2NTM3OTg4MTQsImlhdCI6MTY1Mzc5NzAxNCwianRpIjoiMzRhM2YxNWYtMjlmZS00ZTk1LWFhMzUtYThjYzI0YzI1OGFjIiwiaXNzIjoiaHR0cDovLzEwLjAuMC4xNzI6MzAwMy9hdXRoL3JlYWxtcy9kZXYtaGVsbSIsImF1ZCI6Imh0dHA6Ly8xMC4wLjAuMTcyOjMwMDMvYXV0aC9yZWFsbXMvZGV2LWhlbG0iLCJzdWIiOiJhMzQ4NzI3Ny1mMzkzLTQyOWMtOWZmZC1kZmM1ZDIwNTA0YTMiLCJ0eXAiOiJSZWZyZXNoIiwiYXpwIjoicGFydG5lcnMtbXMiLCJzZXNzaW9uX3N0YXRlIjoiZmNmNzk0NTctN2JjZC00Y2U0LWFlMTgtZDczOGRiMDkyMTIxIiwic2NvcGUiOiJwcm9maWxlIGVtYWlsIiwic2lkIjoiZmNmNzk0NTctN2JjZC00Y2U0LWFlMTgtZDczOGRiMDkyMTIxIn0.lBD26qVVQc_fSXZ6VZvGt-veDqkLjM1HT5-NxxaYpZM",
+                                    "token_type": "Bearer",
+                                    "not-before-policy": 0,
+                                    "session_state": "fcf79457-7bcd-4ce4-ae18-d738db092121",
+                                    "scope": "profile email"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/register-user": {
+            "post": {
+                "summary": "Registra um usuario no sistema",
+                "description": "Rota responsável por registrar usuario no sistema",
+                "tags": ["Register"],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "username": {
+                                        "type": "string"
+                                    },
+                                    "emailVerified": {
+                                        "type": "integer"
+                                    },
+                                    "firstName": {
+                                        "type": "string"
+                                    },
+                                    "lastName": {
+                                        "type": "string"
+                                    },
+                                    "enabled": {
+                                        "type": "integer"
+                                    },
+                                    "realmRoles": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "groups": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "credentials": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "object",
+                                            "properties": {
+                                                "type": {
+                                                    "type": "string"
+                                                },
+                                                "value": {
+                                                    "type": "string"
+                                                },
+                                                "temporary": {
+                                                    "type": "integer"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            },
+                            "encoding": {
+                                "payload": {
+                                    "contentType": "application/json"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "401": {
+                        "description": "Não autorizado"
+                    },
+                    "403": {
+                        "description": "Não autorizado"
+                    },
+                    "409": {
+                        "description": "Usuário já existe"
+                    },
+                    "201": {
+                        "description": "Usuário Criado",
+                        "content": {
+                            "aplication/json": {}
+                        }
+                    }
+                }
+            }
+        },
+        "/logout": {
+            "post": {
+                "summary": "Invalida Token",
+                "description": "Rota responsável por invalidar refresh_token do usuario",
+                "tags": ["Logout"],
+                "requestBody": {
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "client_id": {
+                                        "type": "string"
+                                    },
+                                    "client_secret": {
+                                        "type": "string"
+                                    },
+                                    "refresh_token": {
+                                        "type": "string"
+                                    }
+                                }
+                            },
+                            "encoding": {
+                                "payload": {
+                                    "contentType": "application/json"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "401": {
+                        "description": "Não autorizado"
+                    },
+                    "403": {
+                        "description": "Não autorizado"
+                    },
+                    "204": {
+                        "description": "ok",
+                        "content": {
+                            "aplication/json": {}
+                        }
+                    }
+                }
+            }
+        },
+        "/refresh-token/{id}": {
+            "get": {
+                "summary": "Retorna refresh_token salvo em manager-db-cache",
+                "description": "Rota responsável por retornar refresh_token",
+                "tags": ["Refresh Token"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id do usuario",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "401": {
+                        "description": "Não autorizado"
+                    },
+                    "403": {
+                        "description": "Não autorizado"
+                    },
+                    "200": {
+                        "description": "ok",
+                        "content": {
+                            "aplication/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "refresh_token": {
+                                            "type": "string"
+                                        }
+                                    }
+                                },
+                                "example": {
+                                    "expires": 275,
+                                    "token": "eyJhbGciOiJIUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICI4ODkyOTMwZC02MTA0LTRhYTMtYjhmZi00OTQ3YjYwODY5OWYifQ.eyJleHAiOjE2NTM3OTg4MTQsImlhdCI6MTY1Mzc5NzAxNCwianRpIjoiMzRhM2YxNWYtMjlmZS00ZTk1LWFhMzUtYThjYzI0YzI1OGFjIiwiaXNzIjoiaHR0cDovLzEwLjAuMC4xNzI6MzAwMy9hdXRoL3JlYWxtcy9kZXYtaGVsbSIsImF1ZCI6Imh0dHA6Ly8xMC4wLjAuMTcyOjMwMDMvYXV0aC9yZWFsbXMvZGV2LWhlbG0iLCJzdWIiOiJhMzQ4NzI3Ny1mMzkzLTQyOWMtOWZmZC1kZmM1ZDIwNTA0YTMiLCJ0eXAiOiJSZWZyZXNoIiwiYXpwIjoicGFydG5lcnMtbXMiLCJzZXNzaW9uX3N0YXRlIjoiZmNmNzk0NTctN2JjZC00Y2U0LWFlMTgtZDczOGRiMDkyMTIxIiwic2NvcGUiOiJwcm9maWxlIGVtYWlsIiwic2lkIjoiZmNmNzk0NTctN2JjZC00Y2U0LWFlMTgtZDczOGRiMDkyMTIxIn0.lBD26qVVQc_fSXZ6VZvGt-veDqkLjM1HT5-NxxaYpZM"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,6 @@
+export * from "./DeleteModality"
+export * from "./GetAllModality"
+export * from "./GetModality"
+export * from "./SaveModality"
+export * from "./GetModalityList"
+export * from "./UpdateModality"

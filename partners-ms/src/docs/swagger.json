@@ -1,0 +1,1849 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Partners Api",
+        "description": "Tem por objetivo manipular dados referentes ao cadastro de sócios de um clube de esportes",
+        "termsOfService": "https://github.com/pablords/partners",
+        "contact": {
+            "name": "API Support",
+            "url": "hhttps://github.com/pablords/partners",
+            "email": "pablords@gmail.com"
+        },
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://10.0.0.172:3001/v1",
+            "description": "Api de teste"
+        },
+        {
+            "url": "http://10.0.0.172:3001/v1",
+            "description": "Api de produção"
+        }
+    ],
+    "paths": {
+        "/contacts": {
+            "get": {
+                "summary": "Listagem de contatos sócios",
+                "description": "Essa rota será responsável por listar todos contatos armazenados no banco de dados",
+                "tags": ["Contacts"],
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "token de acesso",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "500": {
+                        "description": "Erro! contate o administrador do sistema"
+                    },
+                    "400": {
+                        "description": "Erro ao processar requisição"
+                    },
+                    "403": {
+                        "description": "Não autorizado"
+                    },
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "aplication/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id": {
+                                            "type": "number"
+                                        },
+                                        "phone": {
+                                            "type": "number"
+                                        },
+                                        "address": {
+                                            "type": "string"
+                                        },
+                                        "email": {
+                                            "type": "string"
+                                        },
+                                        "partnerId": {
+                                            "type": "number"
+                                        },
+                                        "createdAt": {
+                                            "type": "string"
+                                        },
+                                        "updatedAt": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/contacts/{id}": {
+            "get": {
+                "summary": "Busca de um contato pelo id",
+                "description": "Essa rota será responsável por buscar um contato pelo id",
+                "tags": ["Contacts"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id do contato",
+                        "required": true
+                    },
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "token de acesso",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "500": {
+                        "description": "Erro! contate o administrador do sistema"
+                    },
+                    "422": {
+                        "description": "Dados invalidos"
+                    },
+                    "400": {
+                        "description": "Erro ao processar requisição"
+                    },
+                    "403": {
+                        "description": "Não autorizado"
+                    },
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "aplication/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id": {
+                                            "type": "number"
+                                        },
+                                        "phone": {
+                                            "type": "number"
+                                        },
+                                        "address": {
+                                            "type": "string"
+                                        },
+                                        "email": {
+                                            "type": "string"
+                                        },
+                                        "partnerId": {
+                                            "type": "number"
+                                        },
+                                        "createdAt": {
+                                            "type": "string"
+                                        },
+                                        "updatedAt": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/contacts/create": {
+            "post": {
+                "summary": "Cria um novo contato",
+                "description": "essa rota será responsável por criar um novo contato",
+                "tags": ["Contacts"],
+                "requestBody": {
+                    "content": {
+                        "application/json; charset=utf-8": {
+                            "schema": {
+                                "properties": {
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "phone": {
+                                        "type": "number"
+                                    },
+                                    "address": {
+                                        "type": "string"
+                                    },
+                                    "partnerId": {
+                                        "type": "number",
+                                        "description": "vincula contato ao sócio"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "token de acesso",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "422": {
+                        "description": "Dados invalidos"
+                    },
+                    "500": {
+                        "description": "Erro! contate o administrador do sistema"
+                    },
+                    "400": {
+                        "description": "Erro ao processar requisição"
+                    },
+                    "403": {
+                        "description": "Não autorizado"
+                    },
+                    "201": {
+                        "description": "Created",
+                        "content": {
+                            "aplication/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id": {
+                                            "type": "number"
+                                        },
+                                        "phone": {
+                                            "type": "number"
+                                        },
+                                        "address": {
+                                            "type": "string"
+                                        },
+                                        "email": {
+                                            "type": "string"
+                                        },
+                                        "partnerId": {
+                                            "type": "number"
+                                        },
+                                        "createdAt": {
+                                            "type": "string"
+                                        },
+                                        "updatedAt": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/contacts/{id}/update": {
+            "put": {
+                "summary": "Atualiza um contato",
+                "description": "Essa rota será responsável por atualizar um contato. O campo partnerId é obrigatório",
+                "tags": ["Contacts"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id do contato",
+                        "required": true
+                    },
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "token de acesso",
+                        "required": true
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json; charset=utf-8": {
+                            "schema": {
+                                "required": ["partnerId"],
+                                "properties": {
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "phone": {
+                                        "type": "number"
+                                    },
+                                    "address": {
+                                        "type": "string"
+                                    },
+                                    "partnerId": {
+                                        "type": "number",
+                                        "description": "vincula contato ao sócio"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "422": {
+                        "description": "Dados invalidos"
+                    },
+                    "500": {
+                        "description": "Erro! contate o administrador do sistema"
+                    },
+                    "400": {
+                        "description": "Erro ao processar requisição"
+                    },
+                    "403": {
+                        "description": "Não autorizado"
+                    },
+                    "201": {
+                        "description": "Created",
+                        "content": {
+                            "aplication/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "generatedMaps": {
+                                            "type": "array"
+                                        },
+                                        "raw": {
+                                            "type": "array"
+                                        },
+                                        "affected": {
+                                            "type": "number"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/contacts/{id}/delete": {
+            "delete": {
+                "summary": "Deleta um contato",
+                "description": "Essa rota será responsável por deletar um contato. O campo partnerId é obrigatório",
+                "tags": ["Contacts"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id do contato",
+                        "required": true
+                    },
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "token de acesso",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "422": {
+                        "description": "Dados invalidos"
+                    },
+                    "500": {
+                        "description": "Erro! contate o administrador do sistema"
+                    },
+                    "400": {
+                        "description": "Erro ao processar requisição"
+                    },
+                    "403": {
+                        "description": "Não autorizado"
+                    },
+                    "204": {
+                        "description": "No content",
+                        "content": {
+                            "aplication/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "generatedMaps": {
+                                            "type": "array"
+                                        },
+                                        "raw": {
+                                            "type": "array"
+                                        },
+                                        "affected": {
+                                            "type": "number"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/partners": {
+            "get": {
+                "summary": "Listagem de sócios",
+                "description": "Essa rota será responsável por listar todos sócios armazenados no banco de dados",
+                "tags": ["Partners"],
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "token de acesso",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "500": {
+                        "description": "Erro! contate o administrador do sistema"
+                    },
+                    "400": {
+                        "description": "Erro ao processar requisição"
+                    },
+                    "403": {
+                        "description": "Não autorizado"
+                    },
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "aplication/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id": {
+                                            "type": "number"
+                                        },
+                                        "name": {
+                                            "type": "string"
+                                        },
+                                        "surname": {
+                                            "type": "string"
+                                        },
+                                        "birthDate": {
+                                            "type": "string"
+                                        },
+                                        "createdAt": {
+                                            "type": "string"
+                                        },
+                                        "updatedAt": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/partners/{id}": {
+            "get": {
+                "summary": "Busca de um sócio pelo id",
+                "description": "Essa rota será responsável por buscar um sócio pelo id",
+                "tags": ["Partners"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id do sócio",
+                        "required": true
+                    },
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "token de acesso",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "500": {
+                        "description": "Erro! contate o administrador do sistema"
+                    },
+                    "400": {
+                        "description": "Erro ao processar requisição"
+                    },
+                    "403": {
+                        "description": "Não autorizado"
+                    },
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "aplication/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id": {
+                                            "type": "number"
+                                        },
+                                        "name": {
+                                            "type": "string"
+                                        },
+                                        "surname": {
+                                            "type": "string"
+                                        },
+                                        "birthDate": {
+                                            "type": "string"
+                                        },
+                                        "createdAt": {
+                                            "type": "string"
+                                        },
+                                        "updatedAt": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/partners/create": {
+            "post": {
+                "summary": "Cria um novo sócio",
+                "description": "Essa rota será responsável por criar um novo sócio",
+                "tags": ["Partners"],
+                "requestBody": {
+                    "content": {
+                        "application/json; charset=utf-8": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "surname": {
+                                        "type": "string"
+                                    },
+                                    "birthDate": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "token de acesso",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "422": {
+                        "description": "Dados invalidos"
+                    },
+                    "500": {
+                        "description": "Erro! contate o administrador do sistema"
+                    },
+                    "400": {
+                        "description": "Erro ao processar requisição"
+                    },
+                    "403": {
+                        "description": "Não autorizado"
+                    },
+                    "201": {
+                        "description": "Created",
+                        "content": {
+                            "aplication/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id": {
+                                            "type": "number"
+                                        },
+                                        "name": {
+                                            "type": "string"
+                                        },
+                                        "surname": {
+                                            "type": "string"
+                                        },
+                                        "birthDate": {
+                                            "type": "string"
+                                        },
+                                        "createdAt": {
+                                            "type": "string"
+                                        },
+                                        "updatedAt": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/partners/{id}/update": {
+            "put": {
+                "summary": "Atualiza um sócio",
+                "description": "Essa rota será responsável por atualizar um sócio pelo",
+                "tags": ["Partners"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id do sócio",
+                        "required": true
+                    },
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "token de acesso",
+                        "required": true
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json; charset=utf-8": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "surname": {
+                                        "type": "string"
+                                    },
+                                    "birthDate": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "500": {
+                        "description": "Erro! contate o administrador do sistema"
+                    },
+                    "400": {
+                        "description": "Erro ao processar requisição"
+                    },
+                    "403": {
+                        "description": "Não autorizado"
+                    },
+                    "201": {
+                        "description": "Created",
+                        "content": {
+                            "aplication/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "generatedMaps": {
+                                            "type": "array"
+                                        },
+                                        "raw": {
+                                            "type": "array"
+                                        },
+                                        "affected": {
+                                            "type": "number"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/partners/{id}/delete": {
+            "delete": {
+                "summary": "Deleta um sócio",
+                "description": "Essa rota será responsável por deletar um sócio",
+                "tags": ["Partners"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id do sócio",
+                        "required": true
+                    },
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "token de acesso",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "500": {
+                        "description": "Erro! contate o administrador do sistema"
+                    },
+                    "400": {
+                        "description": "Erro ao processar requisição"
+                    },
+                    "403": {
+                        "description": "Não autorizado"
+                    },
+                    "204": {
+                        "description": "No content",
+                        "content": {
+                            "aplication/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "generatedMaps": {
+                                            "type": "array"
+                                        },
+                                        "raw": {
+                                            "type": "array"
+                                        },
+                                        "affected": {
+                                            "type": "number"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/modalities": {
+            "get": {
+                "summary": "Listagem de modalidades",
+                "description": "Essa rota será responsável por listar todas modalidades cadastradas no banco de dados",
+                "tags": ["Modalities"],
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "token de acesso",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "500": {
+                        "description": "Erro! contate o administrador do sistema"
+                    },
+                    "400": {
+                        "description": "Erro ao processar requisição"
+                    },
+                    "403": {
+                        "description": "Não autorizado"
+                    },
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "aplication/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id": {
+                                            "type": "number"
+                                        },
+                                        "name": {
+                                            "type": "string"
+                                        },
+                                        "description": {
+                                            "type": "string"
+                                        },
+                                        "createdAt": {
+                                            "type": "string"
+                                        },
+                                        "updatedAt": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/modalities/{id}": {
+            "get": {
+                "summary": "busca uma modalidade pelo id",
+                "description": "Essa rota será responsável por buscar uma modalidade pelo id",
+                "tags": ["Modalities"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id da modalidade",
+                        "required": true
+                    },
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "token de acesso",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "500": {
+                        "description": "Erro! contate o administrador do sistema"
+                    },
+                    "400": {
+                        "description": "Erro ao processar requisição"
+                    },
+                    "403": {
+                        "description": "Não autorizado"
+                    },
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "aplication/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id": {
+                                            "type": "number"
+                                        },
+                                        "name": {
+                                            "type": "string"
+                                        },
+                                        "description": {
+                                            "type": "string"
+                                        },
+                                        "createdAt": {
+                                            "type": "string"
+                                        },
+                                        "updatedAt": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/modalities/create": {
+            "post": {
+                "summary": "Cria uma nova modalidade",
+                "description": "Essa rota será responsável por criar uma nova modalidade",
+                "tags": ["Modalities"],
+                "requestBody": {
+                    "content": {
+                        "application/json; charset=utf-8": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "description": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "token de acesso",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "422": {
+                        "description": "Dados invalidos"
+                    },
+                    "500": {
+                        "description": "Erro! contate o administrador do sistema"
+                    },
+                    "400": {
+                        "description": "Erro ao processar requisição"
+                    },
+                    "403": {
+                        "description": "Não autorizado"
+                    },
+                    "201": {
+                        "description": "Created",
+                        "content": {
+                            "aplication/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id": {
+                                            "type": "number"
+                                        },
+                                        "name": {
+                                            "type": "string"
+                                        },
+                                        "description": {
+                                            "type": "string"
+                                        },
+                                        "createdAt": {
+                                            "type": "string"
+                                        },
+                                        "updatedAt": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/modalities/{id}/update": {
+            "put": {
+                "summary": "Atualiza uma modalide",
+                "description": "Essa rota será responsável por atualizar uma modalidade",
+                "tags": ["Modalities"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id da modalidade",
+                        "required": true
+                    },
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "token de acesso",
+                        "required": true
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json; charset=utf-8": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "description": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "422": {
+                        "description": "Dados invalidos"
+                    },
+                    "500": {
+                        "description": "Erro! contate o administrador do sistema"
+                    },
+                    "400": {
+                        "description": "Erro ao processar requisição"
+                    },
+                    "403": {
+                        "description": "Não autorizado"
+                    },
+                    "201": {
+                        "description": "No content",
+                        "content": {
+                            "aplication/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "generatedMaps": {
+                                            "type": "array"
+                                        },
+                                        "raw": {
+                                            "type": "array"
+                                        },
+                                        "affected": {
+                                            "type": "number"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/modalities/{id}/delete": {
+            "delete": {
+                "summary": "Deleta uma modalide",
+                "description": "Essa rota será responsável por deletar uma modalidade",
+                "tags": ["Modalities"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id da modalidade",
+                        "required": true
+                    },
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "token de acesso",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "500": {
+                        "description": "Erro! contate o administrador do sistema"
+                    },
+                    "400": {
+                        "description": "Erro ao processar requisição"
+                    },
+                    "403": {
+                        "description": "Não autorizado"
+                    },
+                    "204": {
+                        "description": "No content",
+                        "content": {
+                            "aplication/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "generatedMaps": {
+                                            "type": "array"
+                                        },
+                                        "raw": {
+                                            "type": "array"
+                                        },
+                                        "affected": {
+                                            "type": "number"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/contracts": {
+            "get": {
+                "summary": "Listagem de contratos",
+                "description": "Essa rota será responsável por listar todos contratos cadastrados no banco de dados",
+                "tags": ["Contracts"],
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "token de acesso",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "500": {
+                        "description": "Erro! contate o administrador do sistema"
+                    },
+                    "400": {
+                        "description": "Erro ao processar requisição"
+                    },
+                    "403": {
+                        "description": "Não autorizado"
+                    },
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "aplication/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id": {
+                                            "type": "number"
+                                        },
+                                        "start": {
+                                            "type": "string"
+                                        },
+                                        "status": {
+                                            "type": "number"
+                                        },
+                                        "isActive": {
+                                            "type": "boolean"
+                                        },
+                                        "modalityId": {
+                                            "type": "number"
+                                        },
+                                        "partnerId": {
+                                            "type": "number"
+                                        },
+                                        "dueDate": {
+                                            "type": "string"
+                                        },
+                                        "createdAt": {
+                                            "type": "string"
+                                        },
+                                        "updatedAt": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/contracts/{id}": {
+            "get": {
+                "summary": "busca um contrato pelo id",
+                "description": "Essa rota será responsável por buscar um contrato pelo id",
+                "tags": ["Contracts"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id do contrato",
+                        "required": true
+                    },
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "token de acesso",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "500": {
+                        "description": "Erro! contate o administrador do sistema"
+                    },
+                    "400": {
+                        "description": "Erro ao processar requisição"
+                    },
+                    "403": {
+                        "description": "Não autorizado"
+                    },
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "aplication/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id": {
+                                            "type": "number"
+                                        },
+                                        "start": {
+                                            "type": "string"
+                                        },
+                                        "status": {
+                                            "type": "number"
+                                        },
+                                        "isActive": {
+                                            "type": "boolean"
+                                        },
+                                        "modalityId": {
+                                            "type": "number"
+                                        },
+                                        "partnerId": {
+                                            "type": "number"
+                                        },
+                                        "dueDate": {
+                                            "type": "string"
+                                        },
+                                        "createdAt": {
+                                            "type": "string"
+                                        },
+                                        "updatedAt": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/contracts/create": {
+            "post": {
+                "summary": "Cria um novo contrato",
+                "description": "Essa rota será responsável por criar um novo contrato. O campo partnerId e modalityId são obrigatórios",
+                "tags": ["Contracts"],
+                "requestBody": {
+                    "content": {
+                        "application/json; charset=utf-8": {
+                            "schema": {
+                                "description": "por padrão, caso nao seja passado o dueDate ele será salvo automaticamente somando o start + 30 dias",
+                                "required": ["partnerId", "modalityId"],
+                                "properties": {
+                                    "start": {
+                                        "type": "string",
+                                        "description": "define a data de inicio do contrato"
+                                    },
+                                    "status": {
+                                        "type": "number",
+                                        "description": "define o status atual podendo ser Pendente, Pago, ou Cancelado"
+                                    },
+                                    "isActive": {
+                                        "type": "boolean",
+                                        "description": "define status contrato, true significa Ativo e false Cancelado"
+                                    },
+                                    "modalityId": {
+                                        "type": "number",
+                                        "description": "vincula modalidade ao contrato"
+                                    },
+                                    "partnerId": {
+                                        "type": "number",
+                                        "description": "vincula sócio ao contrato"
+                                    },
+                                    "dueDate": {
+                                        "type": "string",
+                                        "description": "define a data final para vencimento da mensalidade"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "token de acesso",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "422": {
+                        "description": "Dados invalidos"
+                    },
+                    "500": {
+                        "description": "Erro! contate o administrador do sistema"
+                    },
+                    "400": {
+                        "description": "Erro ao processar requisição"
+                    },
+                    "403": {
+                        "description": "Não autorizado"
+                    },
+                    "201": {
+                        "description": "Created",
+                        "content": {
+                            "aplication/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id": {
+                                            "type": "number"
+                                        },
+                                        "name": {
+                                            "type": "string"
+                                        },
+                                        "description": {
+                                            "type": "string"
+                                        },
+                                        "createdAt": {
+                                            "type": "string"
+                                        },
+                                        "updatedAt": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/contracts/{id}/update": {
+            "put": {
+                "summary": "Atualiza um contrato",
+                "description": "Essa rota será responsável por atualizar um contrato. O campo partnerId é obrigatório",
+                "tags": ["Contracts"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id da contrato",
+                        "required": true
+                    },
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "token de acesso",
+                        "required": true
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json; charset=utf-8": {
+                            "schema": {
+                                "description": "por padrão, caso nao seja passado o dueDate ele será salvo automaticamente somando o start + 30 dias",
+                                "required": ["partnerId"],
+                                "properties": {
+                                    "start": {
+                                        "type": "string",
+                                        "description": "define a data de inicio do contrato"
+                                    },
+                                    "status": {
+                                        "type": "number",
+                                        "description": "define o status atual podendo ser Ativo, Suspenso, ou Cancelado"
+                                    },
+                                    "isActive": {
+                                        "type": "boolean",
+                                        "description": "define status contrato, true significa Ativo e false Cancelado"
+                                    },
+                                    "modalityId": {
+                                        "type": "number",
+                                        "description": "vincula modalidade ao contrato"
+                                    },
+                                    "partnerId": {
+                                        "type": "number",
+                                        "description": "vincula sócio ao contrato"
+                                    },
+                                    "dueDate": {
+                                        "type": "string",
+                                        "description": "define a data final para vencimento da mensalidade"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "422": {
+                        "description": "Dados invalidos"
+                    },
+                    "500": {
+                        "description": "Erro! contate o administrador do sistema"
+                    },
+                    "400": {
+                        "description": "Erro ao processar requisição"
+                    },
+                    "403": {
+                        "description": "Não autorizado"
+                    },
+                    "201": {
+                        "description": "No content",
+                        "content": {
+                            "aplication/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "generatedMaps": {
+                                            "type": "array"
+                                        },
+                                        "raw": {
+                                            "type": "array"
+                                        },
+                                        "affected": {
+                                            "type": "number"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/contracts/{id}/delete": {
+            "delete": {
+                "summary": "Deleta um contrato",
+                "description": "Essa rota será responsável por deletar um contato. O campo partnerId é obrigatório",
+                "tags": ["Contracts"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id do contrato",
+                        "required": true
+                    },
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "token de acesso",
+                        "required": true
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json; charset=utf-8": {
+                            "schema": {
+                                "required": ["partnerId"],
+                                "properties": {
+                                    "partnerId": {
+                                        "type": "number",
+                                        "description": "vincula sócio ao contrato"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "500": {
+                        "description": "Erro! contate o administrador do sistema"
+                    },
+                    "400": {
+                        "description": "Erro ao processar requisição"
+                    },
+                    "403": {
+                        "description": "Não autorizado"
+                    },
+                    "204": {
+                        "description": "No content",
+                        "content": {
+                            "aplication/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "generatedMaps": {
+                                            "type": "array"
+                                        },
+                                        "raw": {
+                                            "type": "array"
+                                        },
+                                        "affected": {
+                                            "type": "number"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/register": {
+            "post": {
+                "summary": "Cria um novo Sócio com todas relacões em somente uma chamada",
+                "description": "Essa rota será responsável por criar um registro completo de um sócio com todos atributos obrigátorios",
+                "tags": ["Register"],
+                "requestBody": {
+                    "content": {
+                        "application/json; charset=utf-8": {
+                            "schema": {
+                                "description": "por padrão, caso nao seja passado o dueDate ele será salvo automaticamente somando o start + 30 dias",
+                                "required": ["partnerId", "modalityId"],
+                                "$ref": "#/components/schemas/request/properties/register"
+                            },
+                            "example": {
+                                "partner": {
+                                    "name": "pablo",
+                                    "surname": "ruan",
+                                    "birthDate": "1990-02-24"
+                                },
+                                "contacts": [
+                                    {
+                                        "email": "pablords@gmail.com",
+                                        "phone": 99999999999,
+                                        "address": "endereco 6"
+                                    },
+                                    {
+                                        "email": "pablojds@yahoo.com",
+                                        "phone": 99999999999,
+                                        "address": "endereco 7"
+                                    }
+                                ],
+                                "modalities": [
+                                    {
+                                        "id": 4,
+                                        "contract": {
+                                            "start": "2021-01-01",
+                                            "dueDate": "2021-02-01",
+                                            "isActive": true,
+                                            "status": 2
+                                        }
+                                    },
+                                    {
+                                        "id": 5,
+                                        "contract": {
+                                            "start": "2021-01-01",
+                                            "dueDate": "2021-02-01",
+                                            "isActive": true,
+                                            "status": 2
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "token de acesso",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "422": {
+                        "description": "Dados invalidos"
+                    },
+                    "500": {
+                        "description": "Erro! contate o administrador do sistema"
+                    },
+                    "400": {
+                        "description": "Erro ao processar requisição"
+                    },
+                    "403": {
+                        "description": "Não autorizado"
+                    },
+                    "201": {
+                        "description": "Created",
+                        "content": {
+                            "aplication/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/response/properties/register"
+                                },
+                                "example": {
+                                    "partner": {
+                                        "id": 4,
+                                        "name": "pablo",
+                                        "surname": "ruan",
+                                        "birthDate": "1990-02-24",
+                                        "createdAt": "2021-10-25T19:15:05.628Z",
+                                        "updatedAt": "2021-10-25T19:15:05.628Z"
+                                    },
+                                    "contacts": [
+                                        {
+                                            "email": "pablords@gmail.com",
+                                            "phone": 99999999999,
+                                            "address": "endereco 6",
+                                            "partnerId": 4,
+                                            "id": 19,
+                                            "createdAt": "2021-10-25T19:15:05.322Z",
+                                            "updatedAt": "2021-10-25T19:15:05.000Z"
+                                        },
+                                        {
+                                            "email": "pablojds@yahoo.com",
+                                            "phone": 99999999999,
+                                            "address": "endereco 7",
+                                            "partnerId": 4,
+                                            "id": 20,
+                                            "createdAt": "2021-10-25T19:15:05.347Z",
+                                            "updatedAt": "2021-10-25T19:15:05.000Z"
+                                        }
+                                    ],
+                                    "modalities": [
+                                        {
+                                            "id": 4,
+                                            "name": "karatê",
+                                            "description": "esporte",
+                                            "createdAt": "2021-10-25T05:51:46.483Z",
+                                            "updatedAt": "2021-10-25T05:51:46.483Z"
+                                        },
+                                        {
+                                            "id": 5,
+                                            "name": "natação",
+                                            "description": "esporte",
+                                            "createdAt": "2021-10-25T05:51:46.483Z",
+                                            "updatedAt": "2021-10-25T05:51:46.483Z"
+                                        }
+                                    ],
+                                    "contracts": [
+                                        {
+                                            "start": "2021-01-01",
+                                            "dueDate": "2021-02-01",
+                                            "isActive": true,
+                                            "status": 2,
+                                            "modalityId": 4,
+                                            "partnerId": 4,
+                                            "id": 9,
+                                            "createdAt": "2021-10-25T19:15:05.755Z",
+                                            "updatedAt": "2021-10-25T19:15:05.755Z"
+                                        },
+                                        {
+                                            "start": "2021-01-01",
+                                            "dueDate": "2021-02-01",
+                                            "isActive": true,
+                                            "status": 2,
+                                            "modalityId": 5,
+                                            "partnerId": 4,
+                                            "id": 10,
+                                            "createdAt": "2021-10-25T19:15:05.796Z",
+                                            "updatedAt": "2021-10-25T19:15:05.796Z"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/register/{partnerId}": {
+            "get": {
+                "summary": "Busca um Sócio com todas relacões em somente uma chamada",
+                "description": "Essa rota será responsável por buscar registro completo de sócio com todos atributos obrigátorios",
+                "tags": ["Register"],
+                "parameters": [
+                    {
+                        "name": "partnerId",
+                        "in": "path",
+                        "description": "id do sócio",
+                        "required": true
+                    },
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "token de acesso",
+                        "required": true
+                    }
+                ],
+
+                "responses": {
+                    "500": {
+                        "description": "Erro! contate o administrador do sistema"
+                    },
+                    "400": {
+                        "description": "Erro ao processar requisição"
+                    },
+                    "403": {
+                        "description": "Não autorizado"
+                    },
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "aplication/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/response/properties/register"
+                                },
+                                "example": {
+                                    "partner": {
+                                        "id": 4,
+                                        "name": "pablo",
+                                        "surname": "ruan",
+                                        "birthDate": "1990-02-24",
+                                        "createdAt": "2021-10-25T19:15:05.628Z",
+                                        "updatedAt": "2021-10-25T19:15:05.628Z"
+                                    },
+                                    "contacts": [
+                                        {
+                                            "email": "pablords@gmail.com",
+                                            "phone": 99999999999,
+                                            "address": "endereco 6",
+                                            "partnerId": 4,
+                                            "id": 19,
+                                            "createdAt": "2021-10-25T19:15:05.322Z",
+                                            "updatedAt": "2021-10-25T19:15:05.000Z"
+                                        },
+                                        {
+                                            "email": "pablojds@yahoo.com",
+                                            "phone": 99999999999,
+                                            "address": "endereco 7",
+                                            "partnerId": 4,
+                                            "id": 20,
+                                            "createdAt": "2021-10-25T19:15:05.347Z",
+                                            "updatedAt": "2021-10-25T19:15:05.000Z"
+                                        }
+                                    ],
+                                    "modalities": [
+                                        {
+                                            "id": 4,
+                                            "name": "karatê",
+                                            "description": "esporte",
+                                            "createdAt": "2021-10-25T05:51:46.483Z",
+                                            "updatedAt": "2021-10-25T05:51:46.483Z"
+                                        },
+                                        {
+                                            "id": 5,
+                                            "name": "natação",
+                                            "description": "esporte",
+                                            "createdAt": "2021-10-25T05:51:46.483Z",
+                                            "updatedAt": "2021-10-25T05:51:46.483Z"
+                                        }
+                                    ],
+                                    "contracts": [
+                                        {
+                                            "start": "2021-01-01",
+                                            "dueDate": "2021-02-01",
+                                            "isActive": true,
+                                            "status": 2,
+                                            "modalityId": 4,
+                                            "partnerId": 4,
+                                            "id": 9,
+                                            "createdAt": "2021-10-25T19:15:05.755Z",
+                                            "updatedAt": "2021-10-25T19:15:05.755Z"
+                                        },
+                                        {
+                                            "start": "2021-01-01",
+                                            "dueDate": "2021-02-01",
+                                            "isActive": true,
+                                            "status": 2,
+                                            "modalityId": 5,
+                                            "partnerId": 4,
+                                            "id": 10,
+                                            "createdAt": "2021-10-25T19:15:05.796Z",
+                                            "updatedAt": "2021-10-25T19:15:05.796Z"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+
+    "components": {
+        "securitySchemes": {
+            "BearerAuth": {
+                "type": "http",
+                "scheme": "bearer",
+                "in": "header",
+                "bearerFormat": "JWT"
+            }
+        },
+        "security": {
+            "bearerAuth": []
+        },
+        "schemas": {
+            "request": {
+                "properties": {
+                    "register": {
+                        "properties": {
+                            "partner": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "surname": {
+                                        "type": "string"
+                                    },
+                                    "birthDate": {
+                                        "type": "string"
+                                    }
+                                }
+                            },
+                            "contacts": {
+                                "type": "array",
+                                "properties": {
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "phone": {
+                                        "type": "number"
+                                    },
+                                    "address": {
+                                        "type": "string"
+                                    }
+                                }
+                            },
+                            "modalities": {
+                                "type": "array",
+                                "properties": {
+                                    "id": {
+                                        "type": "number"
+                                    },
+                                    "contract": {
+                                        "properties": {
+                                            "start": {
+                                                "type": "string"
+                                            },
+                                            "dueDate": {
+                                                "type": "string"
+                                            },
+                                            "isActive": {
+                                                "type": "boolean"
+                                            },
+                                            "status": {
+                                                "type": "number"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "response": {
+                "properties": {
+                    "register": {
+                        "properties": {
+                            "partner": {
+                                "type": "object",
+                                "properties": {
+                                    "id": {
+                                        "type": "number"
+                                    },
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "surname": {
+                                        "type": "string"
+                                    },
+                                    "birthDate": {
+                                        "type": "string"
+                                    },
+                                    "createdAt": {
+                                        "type": "string"
+                                    },
+                                    "updatedAt": {
+                                        "type": "string"
+                                    }
+                                }
+                            },
+                            "contacts": {
+                                "type": "array",
+                                "properties": {
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "phone": {
+                                        "type": "number"
+                                    },
+                                    "address": {
+                                        "type": "string"
+                                    },
+                                    "partnerId": {
+                                        "type": "number"
+                                    },
+                                    "id": {
+                                        "type": "number"
+                                    },
+                                    "createdAt": {
+                                        "type": "string"
+                                    },
+                                    "updatedAt": {
+                                        "type": "string"
+                                    }
+                                }
+                            },
+                            "modalities": {
+                                "type": "array",
+                                "properties": {
+                                    "id": {
+                                        "type": "number"
+                                    },
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "description": {
+                                        "type": "string"
+                                    },
+                                    "createdAt": {
+                                        "type": "string"
+                                    },
+                                    "updatedAt": {
+                                        "type": "string"
+                                    }
+                                }
+                            },
+                            "contracts": {
+                                "type": "array",
+                                "properties": {
+                                    "start": {
+                                        "type": "string"
+                                    },
+                                    "dueDate": {
+                                        "type": "string"
+                                    },
+                                    "isActive": {
+                                        "type": "boolean"
+                                    },
+                                    "status": {
+                                        "type": "number"
+                                    },
+                                    "modalityId": {
+                                        "type": "number"
+                                    },
+                                    "partnerId": {
+                                        "type": "number"
+                                    },
+                                    "id": {
+                                        "type": "number"
+                                    },
+                                    "createdAt": {
+                                        "type": "string"
+                                    },
+                                    "updatedAt": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

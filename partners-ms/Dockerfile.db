@@ -1,0 +1,11 @@
+FROM mysql:5.7
+
+
+ENV MYSQL_USER=partners
+ENV MYSQL_PASSWORD=partners
+ENV MYSQL_DATABASE=partners
+ENV MYSQL_ROOT_PASSWORD=partners
+
+EXPOSE 3306
+
+CMD ["--innodb_use_native_aio=0", "--socket=/tmp/mysql.sock", "--bind_address=0.0.0.0"]

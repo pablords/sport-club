@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: partners-ms
+  namespace: sport-club
+  labels:
+    app: partners-ms
+spec:
+  selector:
+    matchLabels:
+      app: partners-ms
+  template:
+    metadata:
+      labels:
+        app: partners-ms
+    spec:
+      containers:
+        - name: partners-ms
+          image: pablords/partners-ms:1.0.0
+          resources:
+          env:
+            - name: DB_HOST
+              value: partners-db
+            - name: DB_DATABASE
+              value: partners-db
+            - name: DB_USER
+              value: partners
+            - name: DB_PASSWORD
+              value: partners
+          ports:
+            - containerPort: 3001
+              name: partners-ms

@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: partners-db
+  namespace: sport-club
+  labels:
+    app: partners-db
+spec:
+  selector:
+    matchLabels:
+      app: partners-db
+      tier: mysql
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: partners-db
+        tier: mysql
+    spec:
+      containers:
+        - name: partners-db
+          image: pablords/partners-db:1.0.0
+          resources:
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: "123456"
+            - name: MYSQL_PASSWORD
+              value: "123456"
+            - name: MYSQL_DATABASE
+              value: partners-db
+            - name: MYSQL_USER
+              value: partners-db
+          ports:
+            - containerPort: 3306
+              name: partners-db

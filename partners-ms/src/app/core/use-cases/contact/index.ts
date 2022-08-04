@@ -1,0 +1,7 @@
+export * from "./DeleteContact"
+export * from "./GetAllContacts"
+export * from "./GetContact"
+export * from "./SaveContact"
+export * from "./GetEmailContact"
+export * from "./SaveOneContact"
+export * from "./UpdateContact"

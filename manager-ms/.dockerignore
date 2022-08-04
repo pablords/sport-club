@@ -1,0 +1,4 @@
+.dockerignore
+coverage
+node_modules
+

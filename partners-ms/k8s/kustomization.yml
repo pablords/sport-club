@@ -1,0 +1,6 @@
+resources:
+  #- namespace.yml ## O NAMESPACE JÁ DEVERÁ ESTAR CRIADO JUNTAMENTE COM O SERVICE ACCOUNT/ROLES/ROLEBINDING/TOKEN PARA ACESSO
+  - db-service.yml
+  - db-deployment.yml
+  - ms-service.yml
+  - ms-deployment.yml

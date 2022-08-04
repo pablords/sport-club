@@ -1,0 +1,12 @@
+/chekin-ms/tmp
+/manager-ms/node_modules
+/manager-ms/logs
+/partners-ms/logs
+/partners-ms/dist
+/partners-ms/node_modules
+/partners-ms/build
+/partners-ms/coverage
+/notifications-ms/tmp
+/payments-ms/logs
+/payments-ms/dist
+/payments-ms/node_modules
