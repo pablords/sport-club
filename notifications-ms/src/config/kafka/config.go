@@ -18,9 +18,9 @@ func KafkaConfig() (*kafka.Conn, *kafka.Reader) {
 	}
 	broker_kafka := os.Getenv("BROKER_KAFKA")
 
-	topic := "partner-contact"
+	topic := os.Getenv("KAFKA_TOPIC")
 	partition := 0
-	groupId := "partners-group-id"
+	groupId := os.Getenv("KAFKA_GROUP_ID")
 	broker := broker_kafka
 
 	conn, err := kafka.DialLeader(context.Background(), "tcp", broker, topic, partition)
