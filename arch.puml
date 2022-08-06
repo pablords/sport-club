@@ -1,0 +1,81 @@
+
+
+@startuml "sport-club"
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+
+!define DEVICONS https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/devicons
+!define FONTAWESOME https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/font-awesome-5
+!include DEVICONS/cisco.puml
+!include DEVICONS/aptana.puml
+!include DEVICONS/mysql.puml
+!include DEVICONS/streamline.puml
+!include FONTAWESOME/key.puml
+!include FONTAWESOME/address_card.puml
+!include FONTAWESOME/money_check_alt.puml
+!include FONTAWESOME/comment_dots.puml
+!include FONTAWESOME/map_marker_alt.puml
+
+LAYOUT_TOP_DOWN()
+LAYOUT_WITH_LEGEND()
+
+
+Person_Ext(anonymous_user, "Anonymous User")
+Person(aggregated_user, "Aggregated User")
+Person(administration_user, "Administration User")
+
+Container(api_getway, "Api Gateway","A proxy exposed service", $sprite="cisco")
+
+System_Boundary(c3, "keycloak"){
+    Container(keycloak, "Keycloak", "The Micro service of autentication and authorization", $sprite="key")
+    ContainerDb(keycloak_db, "keycloak Database", "Persitence Data",  $sprite="mysql")
+}
+
+System_Boundary(c1, "internal services"){
+
+    Container(manager_ms, "Manager MS", "A Facade with keycloak for login, refresh-token and register", $sprite="aptana")
+
+    System_Boundary(c4, "partners-ms"){
+        Container(partners_ms, "Partners MS", "The Micro service of partners", $sprite="address_card")
+        ContainerDb(partners_db, "partners Database", "Persitence Data",  $sprite="mysql")
+    }
+
+    System_Boundary(c5, "payments-ms"){
+        Container(payments_ms, "Payments MS", "The Micro service of payments", $sprite="money_check_alt")
+        ContainerDb(payments_db, "payments Database", "Persitence Data",  $sprite="mysql")
+    }
+
+    Container(checkin_ms, "Chekin MS", "The Micro service of chekin", $sprite="map_marker_alt")
+    Container(notifications_ms, "Notifications MS", "The Micro service of notifications", $sprite="comment_dots")
+    ContainerQueue(kafka, "broker", "kafka streams", $sprite="streamline")
+
+}
+
+
+Rel(anonymous_user, api_getway, "Uses", "HTTPS")
+Rel(aggregated_user, api_getway, "Uses", "HTTPS")
+Rel(administration_user, api_getway, "Uses", "HTTPS")
+
+Rel(api_getway, manager_ms, "Uses", "HTTPS")
+Rel(api_getway, partners_ms, "Uses", "HTTPS")
+Rel(api_getway, payments_ms, "Uses", "HTTPS")
+Rel(api_getway, checkin_ms, "Uses", "HTTPS")
+
+
+
+Rel(keycloak, keycloak_db, "Reads from and writes to", "SQL, port 3306")
+Rel(partners_ms, partners_db, "Reads from and writes to", "SQL, port 3306")
+Rel(payments_ms, payments_db, "Reads from and writes to", "SQL, port 3306")
+
+Rel(api_getway, keycloak, "Uses", "HTTPS")
+
+
+
+Rel_U(kafka, partners_ms, "Uses", "Streams")
+Rel_U(kafka, payments_ms, "Uses", "Streams")
+Rel_U(kafka, checkin_ms, "Uses", "Streams")
+Rel_U(kafka, notifications_ms, "Uses", "Streams")
+
+
+
+@enduml
