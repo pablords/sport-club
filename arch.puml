@@ -31,6 +31,8 @@ System_Boundary(c3, "keycloak"){
     ContainerDb(keycloak_db, "keycloak Database", "Persitence Data",  $sprite="mysql")
 }
 
+ContainerQueue(kafka_metriics, "Broker Metrics", "kafka streams", $sprite="streamline")
+
 System_Boundary(c1, "internal services"){
 
     Container(manager_ms, "Manager MS", "A Facade with keycloak for login, refresh-token and register", $sprite="aptana")
@@ -47,7 +49,7 @@ System_Boundary(c1, "internal services"){
 
     Container(checkin_ms, "Chekin MS", "The Micro service of chekin", $sprite="map_marker_alt")
     Container(notifications_ms, "Notifications MS", "The Micro service of notifications", $sprite="comment_dots")
-    ContainerQueue(kafka, "broker", "kafka streams", $sprite="streamline")
+    ContainerQueue(kafka, "Broker services", "kafka streams", $sprite="streamline")
 
 }
 
@@ -67,7 +69,8 @@ Rel(keycloak, keycloak_db, "Reads from and writes to", "SQL, port 3306")
 Rel(partners_ms, partners_db, "Reads from and writes to", "SQL, port 3306")
 Rel(payments_ms, payments_db, "Reads from and writes to", "SQL, port 3306")
 
-Rel(api_getway, keycloak, "Uses", "HTTPS")
+Rel_L(api_getway, keycloak, "Uses", "HTTPS")
+Rel_R(api_getway, kafka_metriics, "Uses", "Streams")
 
 
 
@@ -75,7 +78,7 @@ Rel_U(kafka, partners_ms, "Uses", "Streams")
 Rel_U(kafka, payments_ms, "Uses", "Streams")
 Rel_U(kafka, checkin_ms, "Uses", "Streams")
 Rel_U(kafka, notifications_ms, "Uses", "Streams")
-
+Rel_U(kafka, manager_ms, "Uses", "Streams")
 
 
 @enduml
