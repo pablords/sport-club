@@ -1,8 +1,11 @@
 package main
 
+// @title Swagger Example API
+// @version 1.0
+// @description This is a sample server celler server.
+
 import (
 	routes "checkin/src/routes"
-	services "checkin/src/services/kafka"
 	"fmt"
 	"log"
 	"net/http"
@@ -13,18 +16,20 @@ import (
 
 func main() {
 
-	// load .env file
 	err := godotenv.Load(".env")
 	if err != nil {
 		log.Fatalf("Error loading .env file")
 	}
+
+	host := os.Getenv("APP_HOST")
 	port := os.Getenv("APP_PORT")
 
-	go services.SendMessage()
-
-	serverStarting := fmt.Sprintf("checkin is running at port %s", port)
+	serverStarting := fmt.Sprintf("checkin is running http://%s:%s/api/v1", host, port)
 	fmt.Println(serverStarting)
 
-	log.Fatal(http.ListenAndServe(":"+port, routes.Routes()))
+	errServer := http.ListenAndServe(":"+port, routes.Routes())
+	if errServer != nil {
+		log.Fatal("failed to close reader:", errServer)
+	}
 
 }
