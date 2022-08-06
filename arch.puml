@@ -47,7 +47,7 @@ System_Boundary(c1, "internal services"){
         ContainerDb(payments_db, "payments Database", "Persitence Data",  $sprite="mysql")
     }
 
-    Container(checkin_ms, "Chekin MS", "The Micro service of chekin", $sprite="map_marker_alt")
+    Container(checkin_ms, "Checkin MS", "The Micro service of checkin", $sprite="map_marker_alt")
     Container(notifications_ms, "Notifications MS", "The Micro service of notifications", $sprite="comment_dots")
     ContainerQueue(kafka, "Broker services", "kafka streams", $sprite="streamline")
 
