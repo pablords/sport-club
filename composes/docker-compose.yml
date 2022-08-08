@@ -318,6 +318,31 @@ services:
     networks:
       - services
 
+  api-gateway:
+    restart: unless-stopped
+    env_file: ../api-gateway/.env
+    image: pablords/api-gateway:1.0.0
+    container_name: api-gateway
+    depends_on:
+      - kafka
+      - manager-ms
+      - metrics-ms
+    build: ../api-gateway
+    ports:
+      - 3009:3009
+    networks:
+      - services
+    volumes:
+      - ../api-gateway/:/home/node/app
+    healthcheck:
+      test: curl --fail http://localhost:3009/v1/health || exit 1
+      interval: 60s
+      retries: 5
+      start_period: 20s
+      timeout: 10s
+  
+    command: /bin/bash -c npm run dev --prefix ../api-gateway/
+
 volumes:
   keycloak-db-data:
   partners-db-data:
