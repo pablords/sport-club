@@ -2,6 +2,8 @@ import express from "express";
 import { createProxyMiddleware } from "http-proxy-middleware";
 import urls from "./apiUrls";
 import { getVersionApi } from "./utils";
+import TesteController from "./controllers/teste.controller"
+
 
 const api = `api/${getVersionApi()}`;
 export const router = express.Router();
@@ -45,3 +47,18 @@ router.use(
     },
   })
 );
+
+router.use(
+  `/${api}/partners`,
+  createProxyMiddleware({
+    target: PARTNERS_API_URL,
+    changeOrigin: true,
+    pathRewrite: {
+      [`^/${api}/partners/modalities`]: "/v1/modalities",
+      [`^/${api}/partners/health`]: "/v1/health",
+    },
+  })
+);
+
+
+router.get("/test",TesteController.getMessage)
