@@ -2,7 +2,18 @@
   "entryFile": "src/index.ts",
   "noImplicitAdditionalProperties": "throw-on-extras",
   "spec": {
+    "name": "Api-Gateway",
+    "version": "1.0.0",
+    "contact": {
+      "email": "pablords@gmail.com",
+      "name": "Pablo Santos",
+      "url": "https://github.com/pablords"
+    },
+    "description": "Exposed service proxy sport-club",
     "outputDirectory": "docs",
-    "specVersion": 3
+    "specVersion": 3,
+    "host": "10.0.0.172:3009",
+    "basePath": "/api/v1",
+    "schemes": ["http"]
   }
 }

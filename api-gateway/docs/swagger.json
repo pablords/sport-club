@@ -1,0 +1,69 @@
+{
+	"components": {
+		"examples": {},
+		"headers": {},
+		"parameters": {},
+		"requestBodies": {},
+		"responses": {},
+		"schemas": {
+			"Health": {
+				"properties": {
+					"message": {
+						"type": "string"
+					},
+					"uptime": {
+						"type": "string",
+						"format": "date-time"
+					}
+				},
+				"required": [
+					"message",
+					"uptime"
+				],
+				"type": "object",
+				"additionalProperties": false
+			}
+		},
+		"securitySchemes": {}
+	},
+	"info": {
+		"title": "Api-Gateway",
+		"version": "1.0.0",
+		"description": "Exposed service proxy sport-club",
+		"license": {
+			"name": "MIT"
+		},
+		"contact": {
+			"email": "pablords@gmail.com",
+			"name": "Pablo Santos",
+			"url": "https://github.com/pablords"
+		}
+	},
+	"openapi": "3.0.0",
+	"paths": {
+		"/health": {
+			"get": {
+				"operationId": "GetStatusHealth",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Health"
+								}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": []
+			}
+		}
+	},
+	"servers": [
+		{
+			"url": "http://10.0.0.172:3009/api/v1"
+		}
+	]
+}
