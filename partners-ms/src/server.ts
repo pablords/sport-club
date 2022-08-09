@@ -4,7 +4,7 @@ import express from "express"
 import cors from "cors"
 import { router } from "./routes"
 import swaggerUi from "swagger-ui-express"
-import swaggerDocument from "@/docs/swagger.json"
+import swaggerDocument from "../docs/swagger.json"
 import { getVersionApi } from "@/app/utils/getVersion"
 import { keycloak } from "@/infra/services/keycloak/config"
 import { errorHandlerMiddleware } from "@/app/middleware/error-handler"
@@ -34,6 +34,6 @@ server.use(keycloak.middleware({
   admin: "/"
 }))
 
-contractConsumer()
-
 server.use(`/${version}`, router)
+
+contractConsumer()
