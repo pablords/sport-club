@@ -27,7 +27,7 @@ export const connection = new DataSource({
   synchronize: true,
   logging: process.env.DB_LOGGING as LoggerOptions,
   timezone: process.env.TIMEZONE,
-  connectTimeout: 20000
+  connectTimeout: 10000
 })
 
 export const migrateDatabase = async (connection: DataSource) => {
