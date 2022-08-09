@@ -16,6 +16,7 @@
     "express-http-proxy": "^1.6.3",
     "express-session": "^1.17.3",
     "http-proxy-middleware": "^2.0.6",
+    "kafkajs": "^2.1.0",
     "keycloak-connect": "^19.0.1",
     "swagger-ui-express": "^4.5.0",
     "tsoa": "^4.1.1",
