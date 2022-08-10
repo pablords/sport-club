@@ -17,7 +17,7 @@ export async function contractConsumer () {
         key: message.key.toString(),
         value: message.value.toString()
       }
-      const dataParse: any = JSON.parse(data.value)
+      const dataParse = JSON.parse(data.value)
       await factory.updateContractStatus.execute(dataParse.contractId, dataParse.status)
     }
   })

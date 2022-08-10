@@ -8,6 +8,7 @@ import { runFactory } from "./factorys"
 import "dotenv/config"
 import { BgRed, FgGreen } from "../../../console.color"
 import { sleep } from "@/app/utils/sleep"
+import { logger } from "../logger/config"
 
 declare type LoggerOptions = boolean | "all" | Array<("query" | "schema" | "error" | "warn" | "info" | "log" | "migration")>;
 
@@ -42,12 +43,9 @@ connection.initialize().then(async (conn) => {
     await migrateDatabase(conn),
     await runFactory(conn)
   ])
-  if (process.env.NODE_ENV === "development") {
-    console.log(FgGreen, conn)
-  }
 }).catch((error) => {
   if (process.env.NODE_ENV === "development") {
-    console.log(BgRed, error)
+    logger.error(error)
   }
 })
 

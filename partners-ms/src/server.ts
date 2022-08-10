@@ -11,6 +11,7 @@ import { errorHandlerMiddleware } from "@/app/middleware/error-handler"
 import { authMiddleware } from "@/app/middleware/auth-middleware"
 import { getNewRefreshToken } from "@/app/middleware/get-refresh-token"
 import { contractConsumer } from "@/app/consumers/contract.consumer"
+import { createWorkerContractConsumer } from "./app/consumers/worker"
 
 const version = getVersionApi()
 
@@ -34,6 +35,6 @@ server.use(keycloak.middleware({
   admin: "/"
 }))
 
-server.use(`/${version}`, router)
+createWorkerContractConsumer()
 
-contractConsumer()
+server.use(`/${version}`, router)

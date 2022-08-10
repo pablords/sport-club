@@ -17,5 +17,5 @@ mongodbConfig()
 
 getMetricsConsumerService(
   `metrics-ms-${randomUUID()}`,
-  "payments.middleware.logs"
+  "api.gateway.logs"
 );
