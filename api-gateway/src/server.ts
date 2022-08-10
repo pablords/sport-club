@@ -1,12 +1,15 @@
-import express from "express";
+import express, { Response } from "express";
 import cors from "cors";
-import { router } from "./routes";
 import swaggerUi from "swagger-ui-express";
 import swaggerDoc from "../docs/api.json";
 import { api } from "./routes";
 import LoggerMiddleware from "./middlewares/logger";
 import EventEmitter from "events";
-import ProducerLogsService from "./services/producer-logs.service"
+import ProducerLogsService from "./services/producer-logs.service";
+import { ROUTES } from "./routes";
+import { setupProxies } from "./setupProxy";
+import { HealthController } from "./controllers/health.controller";
+import { setupAuth } from "./setupAuth";
 
 export const eventEmitter = new EventEmitter();
 export const server = express();
@@ -14,25 +17,15 @@ server.use(cors());
 
 server.use(`/${api}/docs`, swaggerUi.serve, swaggerUi.setup(swaggerDoc));
 
-//server.use(express.static("docs"));
-
-// server.use(
-//   `/${api}/docs`,
-//   swaggerUi.serve,
-//   swaggerUi.setup(undefined, {
-//     swaggerOptions: {
-//       url: "/swagger.json",
-//       servers: [
-//         {
-//           url: "http://10.0.0.172:3009",
-//           description: "Api de teste",
-//         },
-//       ],
-//     },
-//   })
-// );
-eventEmitter.on("middleware.logs.api.created", ProducerLogsService.produce)
+eventEmitter.on("middleware.logs.api.created", ProducerLogsService.produce);
 server.use(LoggerMiddleware.collect);
 
+server.get(`/${api}/health`, async (_, res: Response) => {
+  const contorller = new HealthController();
+  const response = await contorller.getStatusHealth();
+  return res.send(response);
+});
 
-server.use("/", router);
+setupAuth(server, ROUTES);
+setupProxies(server, ROUTES);
+

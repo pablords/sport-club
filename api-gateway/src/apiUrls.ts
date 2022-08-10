@@ -1,6 +1,3 @@
-import { getVersionApi } from "./utils";
-
-const version = getVersionApi()
 
 export default {
   PARTNERS_API_URL: "http://10.0.0.172:3001",
