@@ -33,7 +33,9 @@ class LoggerMiddleware {
       token: req.headers.authorization
     };
     req.headers = { ...req.headers, traceId: traceId };
-    eventEmitter.emit("middleware.logs.api.created", data);
+    if(data.path !== "/api/v1/health"){
+      eventEmitter.emit("middleware.logs.api.created", data);
+    }
     next();
   }
 }
