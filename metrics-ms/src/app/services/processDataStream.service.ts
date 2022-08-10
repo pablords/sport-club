@@ -20,11 +20,9 @@ export async function processDataStream(data: string) {
   const dataParse: IDataLog = JSON.parse(data);
   const dt: IDataLog = {
     ...dataParse,
-    ip: dataParse.ip.replace("::ffff:", " "),
-    agent: dataParse.agent.replace("/", " "),
-    platform: dataParse.platform.replace("''", " "),
+    ip: dataParse.ip?.replace("::ffff:", " ") || "",
+    agent: dataParse.agent?.replace("/", " ") || "",
+    platform: dataParse.platform?.replace("''", " ") || "",
   };
-
-  await Log.create(dt)
- 
+  await Log.create(dt);
 }
