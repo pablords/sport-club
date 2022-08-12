@@ -6,7 +6,6 @@ import { ContractModel } from "../models/ContractModel"
 import { ContactModel } from "../models/ContactModel"
 import { runFactory } from "./factorys"
 import "dotenv/config"
-import { BgRed, FgGreen } from "../../../console.color"
 import { sleep } from "@/app/utils/sleep"
 import { logger } from "../logger/config"
 
