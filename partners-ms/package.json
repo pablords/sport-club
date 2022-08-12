@@ -7,7 +7,7 @@
     "registry": "http://devops-dev.ddns.net:8081/repository/npm-private/"
   },
   "scripts": {
-    "test:cov": "jest ./__test__/unit/** && npx lite-server",
+    "test:cov": "jest ./__test__/unit/**",
     "test:file": "./test_file.sh",
     "test:watch": "jest --watch",
     "test": "jest --detectOpenHandles --forceExit",
@@ -75,7 +75,6 @@
     "eslint-plugin-standard": "^4.1.0",
     "jest": "^27.3.0",
     "jest-express": "^1.12.0",
-    "lite-server": "^2.6.1",
     "prettier": "^2.6.1",
     "supertest": "^6.2.2",
     "ts-node-dev": "^2.0.0",

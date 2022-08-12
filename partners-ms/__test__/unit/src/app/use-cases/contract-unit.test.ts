@@ -40,7 +40,7 @@ const dataValidated: Contract = {
   start: new Date("2021-02-01"),
   dueDate: new Date("2021-03-01"),
   isActive: true,
-  status: "ativo",
+  status: 1,
   partnerId: 1,
   modalityId: 2
 }
@@ -52,7 +52,7 @@ describe.only("Testes unitários de contratos", () => {
         start: new Date("2021-04-01"),
         dueDate: new Date("2021-05-01"),
         isActive: true,
-        status: "ativo",
+        status: 1,
         partnerId: 1,
         modalityId: 2
 
@@ -61,7 +61,7 @@ describe.only("Testes unitários de contratos", () => {
         start: new Date("2021-06-01"),
         dueDate: new Date("2021-07-01"),
         isActive: true,
-        status: "ativo",
+        status: 1,
         partnerId: 1,
         modalityId: 2
       }
@@ -79,7 +79,7 @@ describe.only("Testes unitários de contratos", () => {
       start: null,
       dueDate: new Date("2021-03-01"),
       isActive: true,
-      status: "ativo",
+      status: 1,
       partnerId: 1,
       modalityId: 2
     }
@@ -92,7 +92,7 @@ describe.only("Testes unitários de contratos", () => {
       start: new Date("2021-02-01"),
       dueDate: null,
       isActive: true,
-      status: "ativo",
+      status: 1,
       partnerId: 1,
       modalityId: 2
     }
@@ -114,7 +114,7 @@ describe.only("Testes unitários de contratos", () => {
       start: new Date("2021-02-01"),
       dueDate: new Date("2021-03-01"),
       isActive: null,
-      status: "ativo",
+      status: 1,
       partnerId: 1,
       modalityId: 2
     }
@@ -127,7 +127,7 @@ describe.only("Testes unitários de contratos", () => {
       start: new Date("2021-02-01"),
       dueDate: new Date("2021-03-01"),
       isActive: true,
-      status: "ativo",
+      status: 1,
       partnerId: 1,
       modalityId: 2
     }
@@ -140,7 +140,7 @@ describe.only("Testes unitários de contratos", () => {
       start: new Date("2021-02-01"),
       dueDate: new Date("2021-03-01"),
       isActive: true,
-      status: "ativo",
+      status: 1,
       partnerId: null,
       modalityId: 2
     }
@@ -153,7 +153,7 @@ describe.only("Testes unitários de contratos", () => {
       start: new Date("2021-02-01"),
       dueDate: new Date("2021-03-01"),
       isActive: true,
-      status: "ativo",
+      status: 1,
       partnerId: 1,
       modalityId: null
     }
