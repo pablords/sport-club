@@ -35,6 +35,6 @@ server.use(keycloak.middleware({
   admin: "/"
 }))
 
-createWorkerContractConsumer()
-
 server.use(`/${version}`, router)
+
+createWorkerContractConsumer()

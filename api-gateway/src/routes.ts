@@ -15,7 +15,7 @@ const {
 export interface IRoutes {
   url: string;
   auth: boolean;
-  context: "partners" | "manager" | "payments" | "checkin" | "notifications"
+  context: "partners" | "manager" | "payments" | "checkin" | "notifications";
   proxy: {
     target: string;
     changeOrigin: boolean;
@@ -26,6 +26,23 @@ export interface IRoutes {
 }
 
 export const ROUTES: IRoutes[] = [
+  {
+    url: `/${api}/manager`,
+    context: "manager",
+    auth: false,
+    proxy: {
+      target: MANAGER_API_URL,
+      changeOrigin: true,
+      pathRewrite: {
+        [`^/${api}/manager/login`]: "/v1/login",
+        [`^/${api}/manager/register-user`]: "/v1/register-user",
+        [`^/${api}/manager/health`]: "/v1/health",
+        [`^/${api}/manager/logout`]: "/v1/logout",
+        [`^/${api}/manager/refresh-token`]: "/v1/refresh-token",
+      },
+    },
+  },
+
   {
     url: `/${api}/payments`,
     auth: true,
@@ -49,25 +66,8 @@ export const ROUTES: IRoutes[] = [
       target: CHECKIN_API_URL,
       changeOrigin: true,
       pathRewrite: {
-        [`^/${api}/checkin/access-release`]: "/v1/access-release",
-        [`^/${api}/checkin/health`]: "/v1/health",
-      },
-    },
-  },
-
-  {
-    url: `/${api}/manager`,
-    context: "manager",
-    auth: false,
-    proxy: {
-      target: MANAGER_API_URL,
-      changeOrigin: true,
-      pathRewrite: {
-        [`^/${api}/manager/login`]: "/v1/login",
-        [`^/${api}/manager/register-user`]: "/v1/register-user",
-        [`^/${api}/manager/health`]: "/v1/health",
-        [`^/${api}/manager/logout`]: "/v1/logout",
-        [`^/${api}/manager/refresh-token`]: "/v1/refresh-token",
+        [`^/${api}/checkin/access-release`]: "/api/v1/access-release",
+        [`^/${api}/checkin/health`]: "/api/v1/health",
       },
     },
   },

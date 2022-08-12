@@ -21,11 +21,12 @@ eventEmitter.on("middleware.logs.api.created", ProducerLogsService.produce);
 server.use(LoggerMiddleware.collect);
 
 server.get(`/${api}/health`, async (_, res: Response) => {
-  const contorller = new HealthController();
-  const response = await contorller.getStatusHealth();
+  const controller = new HealthController();
+  const response = await controller.getStatusHealth();
   return res.send(response);
 });
 
 setupAuth(server, ROUTES);
 setupProxies(server, ROUTES);
+
 
