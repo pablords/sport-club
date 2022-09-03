@@ -19,30 +19,50 @@ jest.mock("@/infra/services/kafka/config", () => {
           run: jest.fn(),
           subscribe: jest.fn()
         }
-      })
+      }),
+      producer: jest.fn().mockImplementation(() => {
+        return {
+          send: jest.fn()
+        }
+      }),
+      connect: jest.fn(),
+      disconnect: jest.fn()
     }
   }
 })
 
 describe("Teste unitário de consumidor kafka", () => {
-  it("Deve consumir uma mensagem", async () => {
-    const consumer = kafka.consumer({
+  let topicName, groupId, producer, consumer
+
+  beforeEach(async () => {
+    topicName = `payments.transactions.created.${randomUUID()}`
+    groupId = `consumer-group-id-${randomUUID()}`
+
+    producer = kafka.producer()
+
+    consumer = kafka.consumer({
       groupId: `partners-ms-${randomUUID()}`
     })
+  })
 
-    await consumer.subscribe({
-      topic: "payments.transactions.created",
-      fromBeginning: false
+  it("Deve consumir uma mensagem", async () => {
+    await consumer.subscribe({ topic: topicName, fromBeginning: true })
+
+    const messagesConsumed = []
+    consumer.run({
+      eachMessage: async (event) => messagesConsumed.push(event)
     })
-    const consumedMessages = []
+    await Promise.resolve(consumer)
 
-    await consumer.run({
-      eachMessage: ({ message }) => {
-        consumedMessages.push(message)
-      }
-    })
+    const messages = Array(100)
+      .fill()
+      .map(() => {
+        const value = randomUUID()
+        return { key: `key-${value}`, value: `value-${value}` }
+      })
 
-    await contractConsumer()
+    await producer.send({ acks: 1, topic: topicName, messages })
+    await Promise.resolve(messagesConsumed, { number: messages.length })
 
     expect(kafka).toBeDefined()
   })

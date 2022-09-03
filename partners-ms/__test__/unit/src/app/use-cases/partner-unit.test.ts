@@ -30,9 +30,10 @@ const getPartner = new GetPartner(repository)
 const updatePartner = new UpdatePartner(repository)
 
 describe("Testes unitários de informacões pessoais", () => {
+  let list: []
   beforeAll(async () => {
     jest.useFakeTimers()
-    const list = [
+    list = [
       {
         name: "joao",
         surname: "da silva",
@@ -50,6 +51,10 @@ describe("Testes unitários de informacões pessoais", () => {
     }
 
     await repository.save(dataValidated)
+  })
+
+  afterAll(() => {
+    list = []
   })
 
   it("Não deve salvar um registro caso o nome seja omitido", async () => {

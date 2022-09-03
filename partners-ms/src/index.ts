@@ -1,4 +1,4 @@
-import { FgGreen } from "../console.color"
+
 import { server } from "./server"
 import { getVersionApi } from "@/app/utils/getVersion"
 import { logger } from "@/infra/logger/config"
