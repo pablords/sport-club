@@ -26,13 +26,13 @@ router.get(
   ContactController.getContact
 )
 router.post(
-  "/contacts/create",
+  "/contacts",
   keycloak.protect("edit"),
   contactRequestValidate.create,
   ContactController.saveOneContact
 )
 router.put(
-  "/contacts/:id/update",
+  "/contacts/:id",
   keycloak.protect("edit"),
   ContactController.updateContact
 )
@@ -53,18 +53,18 @@ router.get(
   PartnerController.getPartner
 )
 router.post(
-  "/partners/create",
+  "/partners",
   keycloak.protect("edit"),
   partnerRequestValidate.create,
   PartnerController.savePartner
 )
 router.put(
-  "/partners/:id/update",
+  "/partners/:id",
   keycloak.protect("edit"),
   PartnerController.updatePartner
 )
 router.delete(
-  "/partners/:id/delete",
+  "/partners/:id",
   keycloak.protect("delete"),
   PartnerController.deletePartner
 )
@@ -80,18 +80,18 @@ router.get(
   ModalityController.getModality
 )
 router.post(
-  "/modalities/create",
+  "/modalities",
   keycloak.protect("edit"),
   modalityRequestValidate.create,
   ModalityController.saveModality
 )
 router.put(
-  "/modalities/:id/update",
+  "/modalities/:id",
   keycloak.protect("edit"),
   ModalityController.updateModality
 )
 router.delete(
-  "/modalities/:id/delete",
+  "/modalities/:id",
   keycloak.protect("delete"),
   ModalityController.deleteModality
 )
@@ -107,13 +107,13 @@ router.get(
   ContractController.getContract
 )
 router.post(
-  "/contracts/create",
+  "/contracts",
   keycloak.protect("edit"),
   contractRequestValidate.create,
   ContractController.saveOneContract
 )
 router.put(
-  "/contracts/:id/update",
+  "/contracts/:id",
   keycloak.protect("edit"),
   ContractController.updateContractStatus
 )
