@@ -37,7 +37,7 @@ router.put(
   ContactController.updateContact
 )
 router.delete(
-  "/contacts/:id/delete",
+  "/contacts/:id",
   keycloak.protect("delete"),
   ContactController.deleteContact
 )
@@ -118,7 +118,7 @@ router.put(
   ContractController.updateContractStatus
 )
 router.delete(
-  "/contracts/:id/delete",
+  "/contracts/:id",
   keycloak.protect("delete"),
   ContractController.deleteContract
 )
